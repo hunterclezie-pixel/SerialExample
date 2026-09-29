@@ -28,12 +28,45 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            ExitButton = new Button();
+            ConnectButton = new Button();
+            SuspendLayout();
+            // 
+            // ExitButton
+            // 
+            ExitButton.Location = new Point(685, 384);
+            ExitButton.Name = "ExitButton";
+            ExitButton.Size = new Size(103, 54);
+            ExitButton.TabIndex = 0;
+            ExitButton.Text = "E&xit";
+            ExitButton.UseVisualStyleBackColor = true;
+            ExitButton.Click += ExitButton_Click;
+            // 
+            // ConnectButton
+            // 
+            ConnectButton.Location = new Point(585, 385);
+            ConnectButton.Name = "ConnectButton";
+            ConnectButton.Size = new Size(94, 53);
+            ConnectButton.TabIndex = 1;
+            ConnectButton.Text = "Connect";
+            ConnectButton.UseVisualStyleBackColor = true;
+            ConnectButton.Click += ConnectButton_Click;
+            // 
+            // SerialForm
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(ConnectButton);
+            Controls.Add(ExitButton);
+            Name = "SerialForm";
             Text = "Form1";
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private Button ExitButton;
+        private Button ConnectButton;
     }
 }
