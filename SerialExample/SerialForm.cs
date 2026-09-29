@@ -1,4 +1,5 @@
 using System.IO.Ports;
+using System.Xml.Serialization;
 
 namespace SerialExample
 {
@@ -19,13 +20,23 @@ namespace SerialExample
             _serialPort.DataBits = 8;
             _serialPort.Parity = Parity.None;
             //_serialPort.StopBits = StopBits.One;
-
+            
         }
 
         void SerialConnect()
         {
             _serialPort.Close();
             _serialPort.Open();
+        }
+
+        void SerialSend()
+        {
+            _serialPort.Write("Hello World");
+        }
+
+        void SerialRead()
+        {
+            SerialTextBox.Text = _serialPort.ReadExisting();
         }
 
 
@@ -39,6 +50,16 @@ namespace SerialExample
         {
             SerialPortSetup();
             SerialConnect();
+        }
+
+        private void WriteButton_Click(object sender, EventArgs e)
+        {
+            SerialSend();
+        }
+
+        private void ReadButton_Click(object sender, EventArgs e)
+        {
+            SerialRead();
         }
     }
 }
