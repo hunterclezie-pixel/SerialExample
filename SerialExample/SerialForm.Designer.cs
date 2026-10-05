@@ -41,6 +41,7 @@
             label1 = new Label();
             PortsComboBox = new ComboBox();
             ComListBox = new ListBox();
+            OutputTextBox = new TextBox();
             StatusStrip.SuspendLayout();
             SuspendLayout();
             // 
@@ -144,11 +145,19 @@
             ComListBox.Size = new Size(619, 344);
             ComListBox.TabIndex = 9;
             // 
+            // OutputTextBox
+            // 
+            OutputTextBox.Location = new Point(12, 329);
+            OutputTextBox.Name = "OutputTextBox";
+            OutputTextBox.Size = new Size(151, 27);
+            OutputTextBox.TabIndex = 10;
+            // 
             // SerialForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(OutputTextBox);
             Controls.Add(ComListBox);
             Controls.Add(PortsComboBox);
             Controls.Add(label1);
@@ -180,5 +189,6 @@
         private ComboBox PortsComboBox;
         private ToolStripStatusLabel StatusLabel;
         private ListBox ComListBox;
+        private TextBox OutputTextBox;
     }
 }

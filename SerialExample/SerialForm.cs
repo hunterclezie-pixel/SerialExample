@@ -1,5 +1,6 @@
 using System.IO.Ports;
 using System.Xml.Serialization;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace SerialExample
 {
@@ -74,6 +75,22 @@ namespace SerialExample
             _serialPort.Write(thingy, 0, 1);
         }
 
+        void WriteToDigitalOutputs()
+        {
+            // Safer conversion (prevents crashes if the text is invalid)
+            if (byte.TryParse(OutputTextBox.Text, out byte result))
+            {
+                byte myByte = byte.Parse(OutputTextBox.Text);
+                byte[] Whatsit = { 0x20, myByte };
+                _serialPort.Write(Whatsit, 0, 2);
+            }
+            else
+            {
+                MessageBox.Show("Please enter a valid number between 0 and 255.");
+                OutputTextBox.Text = "0"; // Reset to a default value
+            }
+        }
+
 
         // Event Handlers Below Here ---------------------------------------------
         private void ExitButton_Click(object sender, EventArgs e)
@@ -90,7 +107,8 @@ namespace SerialExample
         private void WriteButton_Click(object sender, EventArgs e)
         {
             //SerialSend();
-            TestQyAtBoard();
+            //TestQyAtBoard();
+            WriteToDigitalOutputs();
         }
 
         private void ReadButton_Click(object sender, EventArgs e)
