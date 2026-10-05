@@ -8,6 +8,7 @@ namespace SerialExample
         public SerialForm()
         {
             InitializeComponent();
+            UpdatePortSelection();
         }
 
         SerialPort _serialPort = new SerialPort();
@@ -15,7 +16,7 @@ namespace SerialExample
         {
             _serialPort.Close();
             _serialPort = new SerialPort();
-            _serialPort.PortName = "COM9"; // Set your COM port here
+            _serialPort.PortName = "COM8"; // Set your COM port here
             _serialPort.BaudRate = 9600; // Set your baud rate here
             _serialPort.DataBits = 8;
             _serialPort.Parity = Parity.None;
@@ -36,36 +37,41 @@ namespace SerialExample
 
         void SerialRead()
         {
-            SerialTextBox.Text = _serialPort.ReadExisting();
-        }
+            //SerialTextBox.Text = _serialPort.ReadExisting();
+            byte[] RXJim = new byte[_serialPort.BytesToRead];
+            int byteNumber = 0;
+            _serialPort.Read(RXJim, 0, RXJim.Length);
 
-        void GetSerialPorts()
-        {
-            string[] ports = SerialPort.GetPortNames();
-            PortsComboBox.Items.Clear();
-            foreach (string port in ports)
+            foreach (byte b in RXJim)
             {
-                PortsComboBox.Items.Add(port);
+                byteNumber++;
+                ComListBox.Items.Add($"{byteNumber}: {b} : {b:X2} {(char)b}");
             }
         }
 
-        string GetSelectedPort()
+        string[] GetSerialPorts()
         {
-            return PortsComboBox.SelectedItem?.ToString() ?? "";
+            return SerialPort.GetPortNames();
         }
 
         void UpdatePortSelection()
         {
-            foreach (string port in SerialPort.GetPortNames())
+            foreach (string port in GetSerialPorts())
             {
                 PortsComboBox.Items.Add(port);
             }
 
             if (PortsComboBox.Items.Count > 0)
-            { 
+            {
                 PortsComboBox.SelectedIndex = 0; // Select the first port by default
             }
 
+        }
+
+        void TestQyAtBoard()
+        {
+            byte[] thingy = { 0xF0 };
+            _serialPort.Write(thingy, 0, 1);
         }
 
 
@@ -83,12 +89,18 @@ namespace SerialExample
 
         private void WriteButton_Click(object sender, EventArgs e)
         {
-            SerialSend();
+            //SerialSend();
+            TestQyAtBoard();
         }
 
         private void ReadButton_Click(object sender, EventArgs e)
         {
             SerialRead();
+        }
+
+        private void StatusStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            // Do nothing for now
         }
 
         private void StatusTimer_Tick(object sender, EventArgs e)
@@ -109,11 +121,6 @@ namespace SerialExample
             }
 
             StatusLabel.Text = $"Port: {portName} tx:{txBuffer} rx:{rxBuffer}";
-        }
-
-        private void StatusStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
         }
     }
 }
