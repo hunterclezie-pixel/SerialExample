@@ -35,7 +35,12 @@
             WriteButton = new Button();
             SerialTextBox = new TextBox();
             contextMenuStrip1 = new ContextMenuStrip(components);
-            statusStrip1 = new StatusStrip();
+            StatusStrip = new StatusStrip();
+            StatusTimer = new System.Windows.Forms.Timer(components);
+            label1 = new Label();
+            PortsComboBox = new ComboBox();
+            StatusLabel = new ToolStripStatusLabel();
+            StatusStrip.SuspendLayout();
             SuspendLayout();
             // 
             // ExitButton
@@ -91,21 +96,51 @@
             contextMenuStrip1.Name = "contextMenuStrip1";
             contextMenuStrip1.Size = new Size(61, 4);
             // 
-            // statusStrip1
+            // StatusStrip
             // 
-            statusStrip1.ImageScalingSize = new Size(20, 20);
-            statusStrip1.Location = new Point(0, 426);
-            statusStrip1.Name = "statusStrip1";
-            statusStrip1.Size = new Size(800, 24);
-            statusStrip1.TabIndex = 6;
-            statusStrip1.Text = "statusStrip1";
+            StatusStrip.ImageScalingSize = new Size(20, 20);
+            StatusStrip.Items.AddRange(new ToolStripItem[] { StatusLabel });
+            StatusStrip.Location = new Point(0, 424);
+            StatusStrip.Name = "StatusStrip";
+            StatusStrip.Size = new Size(800, 26);
+            StatusStrip.TabIndex = 6;
+            StatusStrip.Text = "statusStrip1";
+            StatusStrip.ItemClicked += StatusStrip_ItemClicked;
+            // 
+            // StatusTimer
+            // 
+            StatusTimer.Interval = 250;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(124, 315);
+            label1.Name = "label1";
+            label1.Size = new Size(0, 20);
+            label1.TabIndex = 7;
+            // 
+            // PortsComboBox
+            // 
+            PortsComboBox.FormattingEnabled = true;
+            PortsComboBox.Location = new Point(385, 151);
+            PortsComboBox.Name = "PortsComboBox";
+            PortsComboBox.Size = new Size(151, 28);
+            PortsComboBox.TabIndex = 8;
+            // 
+            // StatusLabel
+            // 
+            StatusLabel.Name = "StatusLabel";
+            StatusLabel.Size = new Size(85, 20);
+            StatusLabel.Text = "StatusLabel";
             // 
             // SerialForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(statusStrip1);
+            Controls.Add(PortsComboBox);
+            Controls.Add(label1);
+            Controls.Add(StatusStrip);
             Controls.Add(SerialTextBox);
             Controls.Add(WriteButton);
             Controls.Add(ReadButton);
@@ -113,6 +148,8 @@
             Controls.Add(ExitButton);
             Name = "SerialForm";
             Text = "Form1";
+            StatusStrip.ResumeLayout(false);
+            StatusStrip.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -125,6 +162,10 @@
         private Button WriteButton;
         private TextBox SerialTextBox;
         private ContextMenuStrip contextMenuStrip1;
-        private StatusStrip statusStrip1;
+        private StatusStrip StatusStrip;
+        private System.Windows.Forms.Timer StatusTimer;
+        private Label label1;
+        private ComboBox PortsComboBox;
+        private ToolStripStatusLabel StatusLabel;
     }
 }

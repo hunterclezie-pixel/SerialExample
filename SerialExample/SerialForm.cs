@@ -20,7 +20,7 @@ namespace SerialExample
             _serialPort.DataBits = 8;
             _serialPort.Parity = Parity.None;
             //_serialPort.StopBits = StopBits.One;
-            
+
         }
 
         void SerialConnect()
@@ -37,6 +37,35 @@ namespace SerialExample
         void SerialRead()
         {
             SerialTextBox.Text = _serialPort.ReadExisting();
+        }
+
+        void GetSerialPorts()
+        {
+            string[] ports = SerialPort.GetPortNames();
+            PortsComboBox.Items.Clear();
+            foreach (string port in ports)
+            {
+                PortsComboBox.Items.Add(port);
+            }
+        }
+
+        string GetSelectedPort()
+        {
+            return PortsComboBox.SelectedItem?.ToString() ?? "";
+        }
+
+        void UpdatePortSelection()
+        {
+            foreach (string port in SerialPort.GetPortNames())
+            {
+                PortsComboBox.Items.Add(port);
+            }
+
+            if (PortsComboBox.Items.Count > 0)
+            { 
+                PortsComboBox.SelectedIndex = 0; // Select the first port by default
+            }
+
         }
 
 
@@ -60,6 +89,31 @@ namespace SerialExample
         private void ReadButton_Click(object sender, EventArgs e)
         {
             SerialRead();
+        }
+
+        private void StatusTimer_Tick(object sender, EventArgs e)
+        {
+            string portName;
+            int rxBuffer, txBuffer;
+            if (_serialPort.IsOpen)
+            {
+                portName = _serialPort.PortName;
+                rxBuffer = _serialPort.BytesToRead;
+                txBuffer = _serialPort.BytesToWrite;
+            }
+            else
+            {
+                portName = "none";
+                rxBuffer = 0;
+                txBuffer = 0;
+            }
+
+            StatusLabel.Text = $"Port: {portName} tx:{txBuffer} rx:{rxBuffer}";
+        }
+
+        private void StatusStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
         }
     }
 }
