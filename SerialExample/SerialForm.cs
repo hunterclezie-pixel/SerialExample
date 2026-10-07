@@ -91,6 +91,23 @@ namespace SerialExample
             }
         }
 
+        void incrementDigitalOutputs()
+        {
+            if (byte.TryParse(OutputTextBox.Text, out byte result))
+            {
+                byte myByte = byte.Parse(OutputTextBox.Text);
+                myByte++;
+                if (myByte > 255) myByte = 0; // Wrap around if it exceeds 255
+                OutputTextBox.Text = myByte.ToString();
+                WriteToDigitalOutputs(); // Send the new value to the board
+            }
+            else
+            {
+                MessageBox.Show("Please enter a valid number between 0 and 255.");
+                OutputTextBox.Text = "0"; // Reset to a default value
+            }
+        }
+
 
         // Event Handlers Below Here ---------------------------------------------
         private void ExitButton_Click(object sender, EventArgs e)
@@ -108,7 +125,8 @@ namespace SerialExample
         {
             //SerialSend();
             //TestQyAtBoard();
-            WriteToDigitalOutputs();
+            //WriteToDigitalOutputs();
+            incrementDigitalOutputs();
         }
 
         private void ReadButton_Click(object sender, EventArgs e)
