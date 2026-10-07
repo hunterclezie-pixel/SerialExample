@@ -42,6 +42,7 @@
             PortsComboBox = new ComboBox();
             ComListBox = new ListBox();
             OutputTextBox = new TextBox();
+            DigitalOutputLabel = new Label();
             StatusStrip.SuspendLayout();
             SuspendLayout();
             // 
@@ -152,11 +153,21 @@
             OutputTextBox.Size = new Size(151, 27);
             OutputTextBox.TabIndex = 10;
             // 
+            // DigitalOutputLabel
+            // 
+            DigitalOutputLabel.AutoSize = true;
+            DigitalOutputLabel.Location = new Point(14, 306);
+            DigitalOutputLabel.Name = "DigitalOutputLabel";
+            DigitalOutputLabel.Size = new Size(104, 20);
+            DigitalOutputLabel.TabIndex = 11;
+            DigitalOutputLabel.Text = "Digital Output";
+            // 
             // SerialForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(DigitalOutputLabel);
             Controls.Add(OutputTextBox);
             Controls.Add(ComListBox);
             Controls.Add(PortsComboBox);
@@ -190,5 +201,6 @@
         private ToolStripStatusLabel StatusLabel;
         private ListBox ComListBox;
         private TextBox OutputTextBox;
+        private Label DigitalOutputLabel;
     }
 }
