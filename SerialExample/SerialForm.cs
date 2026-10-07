@@ -31,9 +31,9 @@ namespace SerialExample
             _serialPort.Open();
         }
 
-        void SerialSend()
+        void SerialSend(byte[] data)
         {
-            _serialPort.Write("Hello World");
+            _serialPort.Write(data, 0, data.Length);
         }
 
         void SerialRead()
@@ -108,6 +108,12 @@ namespace SerialExample
             }
         }
 
+        byte[] AN1Read()
+        {
+            byte[] command = { 0x51 };
+            return command;
+        }
+
 
         // Event Handlers Below Here ---------------------------------------------
         private void ExitButton_Click(object sender, EventArgs e)
@@ -126,7 +132,8 @@ namespace SerialExample
             //SerialSend();
             //TestQyAtBoard();
             //WriteToDigitalOutputs();
-            incrementDigitalOutputs();
+            //incrementDigitalOutputs();
+            SerialSend(AN1Read());
         }
 
         private void ReadButton_Click(object sender, EventArgs e)
@@ -157,6 +164,25 @@ namespace SerialExample
             }
 
             StatusLabel.Text = $"Port: {portName} tx:{txBuffer} rx:{rxBuffer}";
+        }
+
+        private void An1TimerCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (An1TimerCheckBox.Checked)
+            {
+                AnalogTimer.Enabled = true;
+            }
+            else
+            {
+                AnalogTimer.Enabled = false;
+            }
+        }
+
+        private void AnalogTimer_Tick(object sender, EventArgs e)
+        {
+            ComListBox.Items.Add(System.DateTime.Now.ToString("yyMMddhhmmss") + System.DateTime.Now.Millisecond);
+            ComListBox.SelectedIndex = ComListBox.Items.Count - 1; // Scroll to the latest entry
+            ComListBox.ClearSelected();
         }
     }
 }

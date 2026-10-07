@@ -43,6 +43,8 @@
             ComListBox = new ListBox();
             OutputTextBox = new TextBox();
             DigitalOutputLabel = new Label();
+            AnalogTimer = new System.Windows.Forms.Timer(components);
+            An1TimerCheckBox = new CheckBox();
             StatusStrip.SuspendLayout();
             SuspendLayout();
             // 
@@ -148,7 +150,7 @@
             // 
             // OutputTextBox
             // 
-            OutputTextBox.Location = new Point(12, 329);
+            OutputTextBox.Location = new Point(12, 105);
             OutputTextBox.Name = "OutputTextBox";
             OutputTextBox.Size = new Size(151, 27);
             OutputTextBox.TabIndex = 10;
@@ -156,17 +158,34 @@
             // DigitalOutputLabel
             // 
             DigitalOutputLabel.AutoSize = true;
-            DigitalOutputLabel.Location = new Point(14, 306);
+            DigitalOutputLabel.Location = new Point(14, 82);
             DigitalOutputLabel.Name = "DigitalOutputLabel";
             DigitalOutputLabel.Size = new Size(104, 20);
             DigitalOutputLabel.TabIndex = 11;
             DigitalOutputLabel.Text = "Digital Output";
+            // 
+            // AnalogTimer
+            // 
+            AnalogTimer.Interval = 250;
+            AnalogTimer.Tick += AnalogTimer_Tick;
+            // 
+            // An1TimerCheckBox
+            // 
+            An1TimerCheckBox.AutoSize = true;
+            An1TimerCheckBox.Location = new Point(12, 148);
+            An1TimerCheckBox.Name = "An1TimerCheckBox";
+            An1TimerCheckBox.Size = new Size(144, 24);
+            An1TimerCheckBox.TabIndex = 12;
+            An1TimerCheckBox.Text = "An1Timer Enable";
+            An1TimerCheckBox.UseVisualStyleBackColor = true;
+            An1TimerCheckBox.CheckedChanged += An1TimerCheckBox_CheckedChanged;
             // 
             // SerialForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(An1TimerCheckBox);
             Controls.Add(DigitalOutputLabel);
             Controls.Add(OutputTextBox);
             Controls.Add(ComListBox);
@@ -202,5 +221,7 @@
         private ListBox ComListBox;
         private TextBox OutputTextBox;
         private Label DigitalOutputLabel;
+        private System.Windows.Forms.Timer AnalogTimer;
+        private CheckBox An1TimerCheckBox;
     }
 }
