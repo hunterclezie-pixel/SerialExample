@@ -17,7 +17,7 @@ namespace SerialExample
         {
             _serialPort.Close();
             _serialPort = new SerialPort();
-            _serialPort.PortName = "COM8"; // Set your COM port here
+            _serialPort.PortName = "COM9"; // Set your COM port here
             _serialPort.BaudRate = 9600; // Set your baud rate here
             _serialPort.DataBits = 8;
             _serialPort.Parity = Parity.None;
@@ -33,7 +33,7 @@ namespace SerialExample
 
         void SerialSend(byte[] data)
         {
-            _serialPort.Write(data, 0, data.Length);
+            _serialPort.Write(OutputTextBox.Text);
         }
 
         void SerialRead()
